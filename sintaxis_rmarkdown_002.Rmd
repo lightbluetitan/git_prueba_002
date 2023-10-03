@@ -1,0 +1,213 @@
+---
+title: "Bar Charts - R"
+subtitle: "barplot() - ggplot2 - lattice"
+author: "Renzo Cáceres Rossi"
+date: "2022/09/29"
+output:
+  html_document:
+    code_download: TRUE
+bibliography: bibliografia.bib
+csl: apa.csl
+link-citations: yes  
+---
+
+<!-- Añadir comentarios a nuestro documento RMarkdown -->
+
+```{r setup,include=FALSE}
+
+library(ggplot2)
+
+library(lattice)
+
+library(sqldf)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+```{python,include=FALSE}
+import seaborn as sns
+
+```
+
+
+
+
+## Diagramas de Barras 
+
+El diagrama de barras (**Bar Chart**) es un gráfico estadístico que nos permite representar la distribución de frecuencias de variables cualitativas y cuantitativas discretas; nuestro objetivo es pasar del lápiz y papel al uso de los lenguajes de programación R [@Rprogramming] y Python, recomendamos la lectura del libro El Arte de Programar en R[@santana2014arte]; compartimos la siguiente imagen como referencia.
+
+
+<center>
+
+
+![](diagrama_barras_amano.jpg){width=400}
+
+
+</center>
+
+
+## Data Set - mtcars {.tabset}
+
+**mtcars** es un data set que ya viene precargado al momento de instalar el **lenguaje de programación R** en nuestro sistema, haremos uso de dicho data set para la creación de distintos diagramas de barras, de las 11 variables y 32 observaciones que lo componen nos enfocaremos en las variables **cyl** (cilindro) y **gear** (engranajes) como se muestra a continuación.
+
+
+
+### mtcar
+
+```{r}
+
+summary(mtcars)
+
+```
+
+
+### var_cyl
+
+```{r}
+summary(mtcars$cyl)
+
+cyl_table <- sqldf("select cyl,count(cyl) as cantidad from mtcars group by cyl")
+
+cyl_table
+
+```
+
+
+
+### var_gear
+
+```{r}
+summary(mtcars$gear)
+
+```
+
+
+
+### var_carb
+
+```{r}
+summary(mtcars$carb)
+```
+
+
+
+## Bar Charts - Matplotlib
+
+**Matplotlib**[@Hunter:2007] es una librería del lenguaje de programación Python, que nos permite crear gráficos estadísticos de gran calidad, **RMarkdown** nos permite trabajar con otros lenguajes de programación tales como **C++, SQL, Julia**, entre muchos otros; a continuación mostramos un diagrama de barras (**Bar Chart**) creado con Matplotlib.
+
+```{python, results='hide',collapse=TRUE,fig.align="center"}
+
+import matplotlib.pyplot as plt
+ 
+
+eje_x = ['Python', 'R', 'Node.js', 'PHP']
+ 
+
+eje_y = [50,20,35,47]
+ 
+
+plt.bar(eje_x, eje_y)
+ 
+
+plt.ylabel('Cantidad de usuarios')
+ 
+
+plt.xlabel('Lenguajes de programación')
+ 
+
+plt.title('Usuarios de lenguajes de programación')
+ 
+
+plt.show()
+
+```
+
+
+## Diagrama Barras Horizontal
+
+A continuación, presentamos como crear un **diagrama de barras horizontal** en el lenguaje de programación Python, utilizando la librería Matplotlib. 
+
+```{python,results='hide',collapse=TRUE,fig.align="center"}
+import matplotlib.pyplot as plt
+ 
+
+eje_x = ['Prog.', 'Ciencia', 'Mat.', 'Ing.']
+ 
+
+eje_y = [76,31,45,57]
+
+colores =['#FF8C00','#9932CC','#8B0000','#8FBC8F']
+ 
+
+plt.barh(eje_x, eje_y, color=colores)
+
+for index,value in enumerate(eje_y):
+    plt.text(value,index,str(value))
+
+plt.ylabel('Empleados')
+plt.xlabel('Habilidades')
+plt.title('Habilidades')
+plt.show()
+
+
+```
+
+
+## Bar Charts - Seaborn
+
+**Seaborn**[@michael_waskom_2017_883859] es una librería de Python que nos permite crear gráficos estadísticos de gran calidad, fue creada tomando como base **Matplotlib**.
+
+```{python,results='hide',collapse=TRUE,fig.align="center"}
+
+eje_x = [4,6,8]
+
+eje_y = [11,7,14]
+
+sns.barplot(x=eje_x,y=eje_y)
+
+plt.title("Número de cilindros")
+
+plt.xlabel("Cilindros")
+
+plt.ylabel("Frecuencias")
+
+plt.show()
+
+```
+
+
+## YouTube - Tutorial
+
+Compartimos el siguiente tutorial tomado de la plataforma **YouTube** que muestra como crear diagramas de barras (**Bar Charts**) en el lenguaje de programación Python, utilizando las librerías **Matplotlib** y **Seaborn**.
+
+<center>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jPre6LVvr5Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external=1></iframe>
+
+</center>
+
+
+## Referencias
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
